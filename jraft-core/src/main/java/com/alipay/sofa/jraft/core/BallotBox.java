@@ -18,8 +18,6 @@ package com.alipay.sofa.jraft.core;
 
 import java.util.concurrent.locks.StampedLock;
 
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +40,6 @@ import com.alipay.sofa.jraft.util.SegmentList;
  *
  * 2018-Apr-04 2:32:10 PM
  */
-@ThreadSafe
 public class BallotBox implements Lifecycle<BallotBoxOptions>, Describer {
 
     private static final Logger       LOG                = LoggerFactory.getLogger(BallotBox.class);

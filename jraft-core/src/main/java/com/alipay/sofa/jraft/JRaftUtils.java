@@ -31,6 +31,7 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.JRaftServiceLoader;
 import com.alipay.sofa.jraft.util.NamedThreadFactory;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
+import com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory;
 import com.alipay.sofa.jraft.util.timer.RaftTimerFactory;
 
 /**
@@ -42,8 +43,7 @@ import com.alipay.sofa.jraft.util.timer.RaftTimerFactory;
  */
 public final class JRaftUtils {
 
-    private final static RaftTimerFactory TIMER_FACTORY = JRaftServiceLoader.load(RaftTimerFactory.class) //
-                                                            .first();
+    private final static RaftTimerFactory TIMER_FACTORY = new DefaultRaftTimerFactory();
 
     /**
      * Get raft timer factory.

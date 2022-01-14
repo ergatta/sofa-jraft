@@ -48,7 +48,7 @@ import com.alipay.sofa.jraft.util.RpcFactoryHelper;
 public class RaftRpcServerFactory {
 
     static {
-        ProtobufMsgFactory.load();
+        //ProtobufMsgFactory.load();
     }
 
     /**

@@ -18,8 +18,6 @@ package com.alipay.sofa.jraft.closure;
 
 import java.util.List;
 
-import javax.annotation.concurrent.ThreadSafe;
-
 import com.alipay.sofa.jraft.Closure;
 
 /**
@@ -29,7 +27,6 @@ import com.alipay.sofa.jraft.Closure;
  *
  * 2018-Mar-14 10:29:12 AM
  */
-@ThreadSafe
 public interface ClosureQueue {
 
     /**

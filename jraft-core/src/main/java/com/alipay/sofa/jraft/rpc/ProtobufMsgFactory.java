@@ -49,49 +49,15 @@ public class ProtobufMsgFactory {
     private static Map<String/* class name in java file */, MethodHandle>  PARSE_METHODS_4J            = new HashMap<>();
     private static Map<String/* class name in java file */, MethodHandle>  DEFAULT_INSTANCE_METHODS_4J = new HashMap<>();
 
-    static {
-        try {
-            final FileDescriptorSet descriptorSet = FileDescriptorSet.parseFrom(ProtoBufFile.class
-                .getResourceAsStream("/raft.desc"));
-            final List<FileDescriptor> resolveFDs = new ArrayList<>();
-            final RaftRpcFactory rpcFactory = RpcFactoryHelper.rpcFactory();
-            for (final FileDescriptorProto fdp : descriptorSet.getFileList()) {
-
-                final FileDescriptor[] dependencies = new FileDescriptor[resolveFDs.size()];
-                resolveFDs.toArray(dependencies);
-
-                final FileDescriptor fd = FileDescriptor.buildFrom(fdp, dependencies);
-                resolveFDs.add(fd);
-                for (final Descriptor descriptor : fd.getMessageTypes()) {
-
-                    final String className = fdp.getOptions().getJavaPackage() + "."
-                                             + fdp.getOptions().getJavaOuterClassname() + "$" + descriptor.getName();
-                    final Class<?> clazz = Class.forName(className);
-                    final MethodHandle parseFromHandler = MethodHandles.lookup().findStatic(clazz, "parseFrom",
-                        methodType(clazz, byte[].class));
-                    final MethodHandle getInstanceHandler = MethodHandles.lookup().findStatic(clazz,
-                        "getDefaultInstance", methodType(clazz));
-                    PARSE_METHODS_4PROTO.put(descriptor.getFullName(), parseFromHandler);
-                    PARSE_METHODS_4J.put(className, parseFromHandler);
-                    DEFAULT_INSTANCE_METHODS_4J.put(className, getInstanceHandler);
-                    rpcFactory.registerProtobufSerializer(className, getInstanceHandler.invoke());
-                }
-
-            }
-        } catch (final Throwable t) {
-            t.printStackTrace(); // NOPMD
-        }
-    }
-
     public static void load() {
-        if (PARSE_METHODS_4J.isEmpty() || PARSE_METHODS_4PROTO.isEmpty() || DEFAULT_INSTANCE_METHODS_4J.isEmpty()) {
+        /*if (PARSE_METHODS_4J.isEmpty() || PARSE_METHODS_4PROTO.isEmpty() || DEFAULT_INSTANCE_METHODS_4J.isEmpty()) {
             throw new IllegalStateException("Parse protocol file failed.");
-        }
+        }*/
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Message> T getDefaultInstance(final String className) {
-        final MethodHandle handle = DEFAULT_INSTANCE_METHODS_4J.get(className);
+        /*final MethodHandle handle = DEFAULT_INSTANCE_METHODS_4J.get(className);
         if (handle == null) {
             throw new MessageClassNotFoundException(className + " not found");
         }
@@ -99,12 +65,13 @@ public class ProtobufMsgFactory {
             return (T) handle.invoke();
         } catch (Throwable t) {
             throw new SerializationException(t);
-        }
+        }*/
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Message> T newMessageByJavaClassName(final String className, final byte[] bs) {
-        final MethodHandle handle = PARSE_METHODS_4J.get(className);
+        /*final MethodHandle handle = PARSE_METHODS_4J.get(className);
         if (handle == null) {
             throw new MessageClassNotFoundException(className + " not found");
         }
@@ -112,12 +79,13 @@ public class ProtobufMsgFactory {
             return (T) handle.invoke(bs);
         } catch (Throwable t) {
             throw new SerializationException(t);
-        }
+        }*/
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Message> T newMessageByProtoClassName(final String className, final byte[] bs) {
-        final MethodHandle handle = PARSE_METHODS_4PROTO.get(className);
+        /*final MethodHandle handle = PARSE_METHODS_4PROTO.get(className);
         if (handle == null) {
             throw new MessageClassNotFoundException(className + " not found");
         }
@@ -125,6 +93,7 @@ public class ProtobufMsgFactory {
             return (T) handle.invoke(bs);
         } catch (Throwable t) {
             throw new SerializationException(t);
-        }
+        }*/
+        return null;
     }
 }

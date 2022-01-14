@@ -26,8 +26,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +78,6 @@ import static com.codahale.metrics.MetricRegistry.name;
  *
  * 2018-Apr-04 10:32:02 AM
  */
-@ThreadSafe
 public class Replicator implements ThreadId.OnError {
 
     private static final Logger              LOG                    = LoggerFactory.getLogger(Replicator.class);

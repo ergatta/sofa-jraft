@@ -26,8 +26,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +54,6 @@ import com.google.protobuf.Message;
  *
  * 2018-Apr-08 12:01:23 PM
  */
-@ThreadSafe
 public class CopySession implements Session {
 
     private static final Logger          LOG         = LoggerFactory.getLogger(CopySession.class);
